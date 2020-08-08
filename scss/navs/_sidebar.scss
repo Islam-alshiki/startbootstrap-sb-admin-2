@@ -1,7 +1,20 @@
 // Sidebar
+
+html[dir="rtl"]{
+  body{
+      .sidebar{
+        padding-right: 0;
+        &.toggled .nav-item .collapse{
+          right: calc(#{$sidebar-collapsed-width} + #{$grid-gutter-width} / 2);
+        }
+      }
+    }
+}
+
 .sidebar {
   width: $sidebar-collapsed-width;
   min-height: 100vh;
+  transition: width 0.35s ease;
   .nav-item {
     position: relative;
     &:last-child {
@@ -29,6 +42,9 @@
       top: 2px;
       // Grow In Animation
       @extend .animated--grow-in;
+      html[dir=rtl] &{
+        left: 0;
+      }
       .collapse-inner {
         border-radius: $border-radius;
         box-shadow: $box-shadow;
@@ -84,7 +100,7 @@
     cursor: pointer;
     &::after {
       font-weight: 900;
-      content: '\f104';
+      content: '\f105';
       font-family: 'Font Awesome 5 Free';
       margin-right: 0.1rem;
     }
@@ -99,7 +115,7 @@
     width: 0 !important;
     overflow: hidden;
     #sidebarToggle::after {
-      content: '\f105';
+      content: '\f104';
       font-family: 'Font Awesome 5 Free';
       margin-left: 0.25rem;
     }
@@ -161,12 +177,16 @@
       .nav-link {
         display: block;
         width: 100%;
-        text-align: left;
+        text-align: start;
         padding: 1rem;
         width: $sidebar-base-width;
         i {
           font-size: 0.85rem;
           margin-right: 0.25rem;
+          html[dir="rtl"] &{
+            margin-left: 0.25rem;
+            margin-right: unset;
+          }
         }
         span {
           font-size: 0.85rem;
@@ -183,9 +203,15 @@
             font-weight: 900;
             content: '\f107';
             font-family: 'Font Awesome 5 Free';
+            [dir=rtl] & {
+              float: left;
+            }
           }
           &.collapsed::after {
             content: '\f105';
+            [dir=rtl] & {
+              content: '\f104';
+            }
           }
         }
       }
@@ -199,7 +225,7 @@
       }
     }
     .sidebar-heading {
-      text-align: left;
+      text-align: start;
     }
     &.toggled {
       overflow: visible;
